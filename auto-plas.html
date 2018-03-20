@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head> 
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<style type="text/css">
+	 #csv {
+	    white-space: pre;
+	    font-family:"Courier New", Courier, monospace;
+	    -webkit-border-radius: 6px;
+	    -moz-border-radius: 6px;
+	    border-radius: 6px;
+	    background-color: white;
+	    padding: 5px;
+	    
+	    background-repeat: no-repeat;
+	    background-position: right top;
+		/*background-image: url('csv.png');*/
+    
+}
+.csvHolder {
+    background-color: #a9a9a9;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    margin: 5px;
+    padding: 10px;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<div class="container">
+<div class="row">
+	<div class="col">
+		<table class="table table-dark">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Image No</th>
+					<th scope="col">1</th>
+					<th scope="col">2</th>
+					<th scope="col">3</th>
+					<th scope="col">4</th>
+					<th scope="col">5</th>
+					<th scope="col">6</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+
+</div>
+<button type="button" class="btn btn-outline-info btn-lg btn-block" onclick="makeCSV()">Make CSV</button>
+</div>
+
+<div id="csv"></div>
+
+<div id="downloadLink"></div>
+
+</div>
+
+<div class="container">
+
+<br>
+
+<div class="row">
+	<div class="col-sm-6">
+		<img id='image1' style="width:480px;height:360px"></img>
+	</div>
+	<div class="col-sm-6">
+		<img id="image2" style="width:480px;height:360px"></img>
+	</div>
+	<div class="col-sm-12">
+	<p id="imagename" style="text-align:center"></p>
+	</div>
+	<div class="col-sm" id='button_div' style="padding-left:378px" >
+		<div class="row">
+			<button type="button" class="btn btn-primary" id="1">1</button>&nbsp;
+			<button type="button" class="btn btn-primary" id="2">2</button>&nbsp;
+
+			<button type="button" class="btn btn-primary" id="3">3</button>&nbsp;
+			<button type="button" class="btn btn-primary" id="4">4</button>&nbsp;
+
+			<button type="button" class="btn btn-primary" id="5">5</button>&nbsp;
+			<button type="button" class="btn btn-primary" id="6">6</button>&nbsp;
+		</div>
+
+
+	</div>
+</div>
+</div>
+
+
+
+<!--<script src="jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>-->
+<script src="jquery-3.2.1.min.js"></script>
+<script src="popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+
+<script type="text/javascript">
+		imgpath=''
+		i=0
+		$.ajax({url:'imgpath.json',dataType:'json',success:function(data){imgpath=data
+			$("#image1").attr("src",imgpath[i]['ori'])
+			$("#image2").attr("src",imgpath[i]['annot'])
+			$('#imagename').text(imgpath[i]['ori'].split('/')[2])
+
+		}});
+		console.log(imgpath)
+
+
+
+
+		$('#nextbutton').click(function()
+		{
+			$("#image1").attr("src",folder1+imageslist[i+1])
+			$("#image2").attr("src",folder2+imageslist[i+1])
+
+
+
+		})
+
+		$('#button_div').on("click","button",function(){
+			buttonpress=$(this)[0].id
+
+			values=[0,0,0,0,0,0]
+
+			values[buttonpress-1]=1
+
+			tableData="<tr><th scope='row'>"+(i+1)+"</th><td>"+imgpath[i]['ori'].split('/')[2]+"</td><td>"
+					+values[0]+"</td><td>"+values[1]+"</td><td>"+values[2]+"</td><td>"+values[3]+"</td><td>"+values[4]+"</td><td>"+values[5]+"</td>"
+			$('table tbody').append(tableData)	
+			jQ11("html, body").animate({ scrollTop: jQ11("body").height()+"px" });
+
+
+			i=i+1
+
+			if(i==imgpath.length)
+			{
+				alert('There are no more images')
+			}
+
+			else
+			{
+
+			$("#image1").attr("src",imgpath[i]['ori'])
+			$("#image2").attr("src",imgpath[i]['annot'])
+			$('#imagename').text(imgpath[i]['ori'].split('/')[2])
+
+			}
+
+
+
+		});
+
+
+		function makeCSV() {
+	    var csv = "";
+	    $('table > tbody > tr').each(function() {
+	        var sep = "";
+	        $(this).find('td').each(function(){
+	            csv += sep + $(this).text();
+	            sep = ",";
+	        });
+	        csv += "\n";
+	    });
+	    $("#csv").text(csv);
+	    window.URL = window.URL || window.webkiURL;
+	    var blob = new Blob([csv]);
+	    var blobURL = window.URL.createObjectURL(blob);
+	    $("#downloadLink").html("");
+	    $("<a></a>").
+	    attr("href", blobURL).
+	    attr("download", "data.csv").
+	    text("Download Data").
+	    appendTo('#downloadLink');
+	}
+
+
+</script>
+<script src="jquery-1.11.0.min.js"></script>
+<script type="text/javascript">
+		var jQ11 = $.noConflict();
+</script>
