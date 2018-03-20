@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head> 
+<head>
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -17,11 +17,11 @@
 	    border-radius: 6px;
 	    background-color: white;
 	    padding: 5px;
-	    
+
 	    background-repeat: no-repeat;
 	    background-position: right top;
 		/*background-image: url('csv.png');*/
-    
+
 }
 .csvHolder {
     background-color: #a9a9a9;
@@ -73,12 +73,80 @@
 	<br>
 
 	<div class="row">
-		<div class="col-sm-6">
+		<div class="col-sm-1" style="height:360px;text-align: right;">
+			8<br><br>
+			7<br><br>
+			6<br><br>
+			5<br><br>
+			4<br><br>
+			3<br><br>
+			2<br><br>
+			1
+		</div>
+		<div class="col-sm-5">
 			<img id='image1' style="width:480px;height:360px"></img>
 		</div>
-		<div class="col-sm-6">
+		<div class="col-sm-1" style="height:360px;text-align: right;">
+			8<br><br>
+			7<br><br>
+			6<br><br>
+			5<br><br>
+			4<br><br>
+			3<br><br>
+			2<br><br>
+			1
+		</div>
+		<div class="col-sm-5">
 			<img id="image2" style="width:480px;height:360px"></img>
 		</div>
+		<div class="col-sm-1">
+		</div>
+			<div class="col-sm-5">
+				<div class="row">
+				<div class="col-sm-2">
+					1
+				</div>
+				<div class="col-sm-2">
+					2
+				</div>
+				<div class="col-sm-2">
+					3
+				</div>
+				<div class="col-sm-2">
+					4
+				</div>
+				<div class="col-sm-2">
+					5
+				</div>
+				<div class="col-sm-2">
+					6
+				</div>
+			</div>
+			</div>
+			<div class="col-sm-1">
+			</div>
+			<div class="col-sm-5">
+				<div class="row">
+				<div class="col-sm-2">
+					1
+				</div>
+				<div class="col-sm-2">
+					1
+				</div>
+				<div class="col-sm-2">
+					1
+				</div>
+				<div class="col-sm-2">
+					1
+				</div>
+				<div class="col-sm-2">
+					1
+				</div>
+				<div class="col-sm-2">
+					1
+				</div>
+			</div>
+			</div>
 		<div class="col-sm-12">
 		<p id="imagename" style="text-align:center"></p>
 		</div>
@@ -141,7 +209,7 @@
 
 			tableData="<tr><th scope='row'>"+(i+1)+"</th><td>"+imgpath[i]['ori'].split('/')[2]+"</td><td>"
 					+values[0]+"</td><td>"+values[1]+"</td><td>"+values[2]+"</td><td>"+values[3]+"</td><td>"+values[4]+"</td><td>"+values[5]+"</td>"
-			$('table tbody').append(tableData)	
+			$('table tbody').append(tableData)
 			jQ11("html, body").animate({ scrollTop: jQ11("body").height()+"px" });
 
 
